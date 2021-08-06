@@ -26,7 +26,7 @@ function Todolist(props: TodolistPropsType) {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setTitleNewTask(e.currentTarget.value);
 
     const onPressKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) { addTask() }
+        if (e.key === 'Enter') { addTask() }
     }
 
     const onAllFilterHandler = ()  => props.changeFilter('all')
