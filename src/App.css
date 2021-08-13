@@ -6,3 +6,92 @@
 .App > div {
   margin-right: 50px;
 }
+
+.input {
+  padding: 2px;
+  margin-right: 5px;
+}
+
+.button {
+  display: inline-block;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  color: black;
+}
+
+.button:hover {
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.button:active {
+  background-color: skyblue;
+}
+
+.button:disabled {
+  opacity: 0.3;
+}
+
+.button:disabled:hover {
+  background-color: white;
+  color: black;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  padding-left: 10px;
+  list-style: none;
+}
+
+.list li {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.removeButton {
+  border: none;
+  background-color: transparent;
+  margin-left: auto;
+}
+
+.error {
+  outline-color: tomato;
+  border: 2px solid tomato;
+}
+
+.errorMessage {
+  display: block;
+  font-size: 12px;
+  color: tomato;
+  height: 20px;
+  margin: 0;
+}
+
+.filterButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 170px;
+}
+
+.filterButton {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: white;
+}
+
+.activeFilterButton {
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.isDone {
+  opacity: 0.5;
+}
