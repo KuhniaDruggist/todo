@@ -40,13 +40,23 @@ function App() {
         setTasksTechnologies(tasksForTodoList)
     }
 
+    function changeStatus(taskId: string, isDone: boolean) {
+        let task = tasksTechnologies.find(task => task.id === taskId);
+        if(task) {
+            task.isDone = isDone;
+            setTasksTechnologies([...tasksTechnologies])
+        }
+    }
+
     return (
         <div className="App">
             <Todolist title={'What to learn'}
                       tasks={tasksForTodoList}
                       removeTask={removeTask}
                       addTask={addTask}
-                      changeFilter={changeFilter}/>
+                      changeTaskStatus={changeStatus}
+                      changeFilter={changeFilter}
+                      filter={filter}/>
         </div>
     );
 }
