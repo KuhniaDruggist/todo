@@ -77,17 +77,6 @@ function App() {
     }
 
     const todoListsForRendering = todoLists.map(tl => {
-        // код ниже мы зарефакторили функцией getTasksForRendering с конструкцией switch
-        // let tasksForTodoList = tasks[tl.id];
-        // tasks[tl.id] = tasksForTodoList
-        //
-        // if (tl.filter === 'active') {
-        //     tasksForTodoList = tasksForTodoList.filter(task => !task.isDone);
-        // }
-        //
-        // if (tl.filter === 'completed') {
-        //     tasksForTodoList = tasksForTodoList.filter(task => task.isDone);
-        // }
         return (
             <Todolist
                 key={tl.id}
