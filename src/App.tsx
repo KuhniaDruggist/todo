@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import Todolist, {TaskType} from './components/Todolist/Todolist';
 import { v1 } from 'uuid';
+import {AddItemForm} from './components/Todolist/AddItem/AddItemForm';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
@@ -37,6 +38,13 @@ function App() {
             {id: v1(), title: 'На западном фронте без перемен', isDone: true}
         ]
     });
+
+    function addNewTodoList(title: string) {
+        let newTodoListId = v1();
+        let newTodoList: TodolistType = {id: newTodoListId, title, filter: 'all'}
+        setTodoLists([newTodoList, ...todoLists])
+        setTasks({...tasks, [newTodoListId]: []})
+    }
 
     function removeTodoList(todoListId: string) {
         setTodoLists(todoLists.filter(t => t.id !== todoListId));
@@ -95,7 +103,10 @@ function App() {
 
     return (
         <div className="App">
-            { todoListsForRendering }
+            <AddItemForm addItem={addNewTodoList} />
+            <div className={'App-list'}>
+                { todoListsForRendering }
+            </div>
         </div>
     );
 }
