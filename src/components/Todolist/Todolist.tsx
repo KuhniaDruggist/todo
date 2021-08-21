@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import styles from './Todolist.module.css'
 import {FilterValuesType} from '../../App';
-import {AddItemForm} from './AddItem/AddItemForm';
+import {AddItemForm} from '../AddItem/AddItemForm';
 
 export type TaskType = {
     id: string

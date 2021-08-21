@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import Todolist, {TaskType} from './components/Todolist/Todolist';
 import { v1 } from 'uuid';
-import {AddItemForm} from './components/Todolist/AddItem/AddItemForm';
+import {AddItemForm} from './components/AddItem/AddItemForm';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
