@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {FilterValuesType} from '../App';
+import styles from './Todolist.module.css'
+import {FilterValuesType} from '../../App';
 
 export type TaskType = {
     id: string
@@ -54,27 +55,27 @@ function Todolist(props: TodolistPropsType) {
     const onActiveFilterHandler = () => props.changeFilter('active', props.todoListId);
     const onCompletedFilterHandler = () => props.changeFilter('completed', props.todoListId);
 
-    const inputTitleClass = `${'input'} ${ error ? 'error' : '' }`;
+    const inputTitleClass = `${styles.input} ${ error ? styles.error : '' }`;
 
-    const buttonAllClass = `${'filterButton'} ${ props.filter === 'all' ? 'activeFilterButton' : ''}`;
-    const buttonActiveClass = `${'filterButton'} ${ props.filter === 'active' ? 'activeFilterButton' : ''}`;
-    const buttonCompletedClass = `${'filterButton'} ${ props.filter === 'completed' ? 'activeFilterButton' : ''}`;
+    const buttonAllClass = `${styles.filterButton} ${ props.filter === 'all' ? styles.activeFilterButton : ''}`;
+    const buttonActiveClass = `${styles.filterButton} ${ props.filter === 'active' ? styles.activeFilterButton : ''}`;
+    const buttonCompletedClass = `${styles.filterButton} ${ props.filter === 'completed' ? styles.activeFilterButton : ''}`;
 
     return (
-        <div className={'todoList'}>
-            <div className='todoHeader'>
+        <div className={styles.todoList}>
+            <div className={styles.todoHeader}>
                 <h3>{props.title}</h3>
-                <button className='removeTodoButton' type="button" onClick={ removeTodoHandler }>x</button>
+                <button className={styles.removeTodoButton} type="button" onClick={ removeTodoHandler }>x</button>
             </div>
             <div>
                 <input value={ titleNewTask }
                        className={ inputTitleClass }
                        onChange={ onChangeHandler }
                        onKeyPress={ onPressKeyHandler }/>
-                <button className={'button'} onClick={ addTask }>Add</button>
-                <span className={'errorMessage'}>{error}</span>
+                <button className={styles.button} onClick={ addTask }>Add</button>
+                <span className={styles.errorMessage}>{error}</span>
             </div>
-            <ul className={'list'}>
+            <ul className={styles.list}>
                 {
                     props.tasks.map(task => {
                         const onClickHandler = () => props.removeTask(task.id, props.todoListId);
@@ -85,15 +86,15 @@ function Todolist(props: TodolistPropsType) {
 
                         return (
                             <li className={task.isDone ? 'isDone' : ''} key={task.id}>
-                                <input className={'checkbox'} type="checkbox" checked={task.isDone} onChange={ onChangeHandler }/>
+                                <input className={styles.checkbox} type="checkbox" checked={task.isDone} onChange={ onChangeHandler }/>
                                 <span>{task.title}</span>
-                                <button className={'removeButton'} type='button' onClick={ onClickHandler }>x</button>
+                                <button className={styles.removeButton} type='button' onClick={ onClickHandler }>x</button>
                             </li>
                         );
                     })
                 }
             </ul>
-            <div className={'filterButtons'}>
+            <div className={styles.filterButtons}>
                 <button type='button' className={buttonAllClass} onClick={ onAllFilterHandler }>All</button>
                 <button type='button' className={buttonActiveClass} onClick={ onActiveFilterHandler }>Active</button>
                 <button type='button' className={buttonCompletedClass} onClick={ onCompletedFilterHandler }>Completed</button>
