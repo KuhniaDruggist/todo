@@ -1,6 +1,7 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import styles from './Todolist.module.css'
 import {FilterValuesType} from '../../App';
+import {AddItemForm} from './AddItem/AddItemForm';
 
 export type TaskType = {
     id: string
@@ -21,41 +22,16 @@ type TodolistPropsType = {
 }
 
 function Todolist(props: TodolistPropsType) {
-    let [titleNewTask, setTitleNewTask] = useState<string>('');
-    let [error, setError] = useState<string>('');
-
     const removeTodoHandler = () => {
         props.removeTodoList(props.todoListId);
     }
-    const addTask = () => {
-        if(!titleNewTask.trim()) {
-            setError('Field is required!');
-            return;
-        }
-        props.addTask(titleNewTask.trim(), props.todoListId);
-        setTitleNewTask('');
+
+    const addTask = (title: string) => {
+        props.addTask(title, props.todoListId)
     }
-
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitleNewTask(e.currentTarget.value);
-    }
-    const onPressKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (error && e.key === ' ') {
-            return;
-        }
-
-        error && setError('');
-
-        if (e.key === 'Enter') {
-            addTask();
-        }
-    }
-
     const onAllFilterHandler = ()  => props.changeFilter('all', props.todoListId);
     const onActiveFilterHandler = () => props.changeFilter('active', props.todoListId);
     const onCompletedFilterHandler = () => props.changeFilter('completed', props.todoListId);
-
-    const inputTitleClass = `${styles.input} ${ error ? styles.error : '' }`;
 
     const buttonAllClass = `${styles.filterButton} ${ props.filter === 'all' ? styles.activeFilterButton : ''}`;
     const buttonActiveClass = `${styles.filterButton} ${ props.filter === 'active' ? styles.activeFilterButton : ''}`;
@@ -67,14 +43,7 @@ function Todolist(props: TodolistPropsType) {
                 <h3>{props.title}</h3>
                 <button className={styles.removeTodoButton} type="button" onClick={ removeTodoHandler }>x</button>
             </div>
-            <div>
-                <input value={ titleNewTask }
-                       className={ inputTitleClass }
-                       onChange={ onChangeHandler }
-                       onKeyPress={ onPressKeyHandler }/>
-                <button className={styles.button} onClick={ addTask }>Add</button>
-                <span className={styles.errorMessage}>{error}</span>
-            </div>
+            <AddItemForm addItem={addTask} />
             <ul className={styles.list}>
                 {
                     props.tasks.map(task => {
