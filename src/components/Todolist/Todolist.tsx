@@ -53,11 +53,11 @@ function Todolist(props: TodolistPropsType) {
                 {
                     props.tasks.map(task => {
                         const onClickHandler = () => props.removeTask(task.id, props.todoListId);
-                        const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                        const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
                             let taskStatus = e.currentTarget.checked;
                             props.changeTaskStatus(task.id, taskStatus, props.todoListId);
                         }
-                        const changTaskTitle = (title: string) => {
+                        const onChangeTaskTitle = (title: string) => {
                             props.changeTaskTitle(task.id, title, props.todoListId)
                         }
 
@@ -66,9 +66,9 @@ function Todolist(props: TodolistPropsType) {
                                 <input className={styles.checkbox}
                                        type="checkbox"
                                        checked={task.isDone}
-                                       onChange={ onChangeHandler }
+                                       onChange={ onChangeStatusHandler }
                                 />
-                                <EditableSpan title={task.title} changeTaskTitle={changTaskTitle}/>
+                                <EditableSpan title={task.title} changeTaskTitle={onChangeTaskTitle}/>
                                 <button className={styles.removeButton} type='button' onClick={ onClickHandler }>x</button>
                             </li>
                         );
