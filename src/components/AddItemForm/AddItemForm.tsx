@@ -1,7 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import styles from '../Todolist/Todolist.module.css';
+import {Button, TextField} from '@material-ui/core';
 
 type AddItemFormPropsType = {
+    placeholder?: string
     addItem: (title: string) => void
 }
 
@@ -33,16 +34,29 @@ export function AddItemForm(props: AddItemFormPropsType) {
         }
     }
 
-    const inputItemClass = `${styles.input} ${error ? styles.error : ''}`;
-
     return (
         <div>
-            <input value={title}
-                   className={inputItemClass}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}/>
-            <button className={styles.button} onClick={addItem}>Add</button>
-            <span className={styles.errorMessage}>{error}</span>
+            <TextField
+                size="small"
+                variant="outlined"
+                value={title}
+                error={!!error}
+                label={error ? 'Error' : ''}
+                helperText={error}
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
+                placeholder={props.placeholder}
+            />
+            <Button style={{
+                minWidth: '30px',
+                marginTop: '5px',
+                marginLeft: '10px',
+                padding: '4px 6px'
+            }} variant="contained"
+                    size={'small'}
+                    disableElevation
+                    onClick={addItem}>Add
+            </Button>
         </div>
     );
 }
