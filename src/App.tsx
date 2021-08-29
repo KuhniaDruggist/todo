@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Todolist, {TaskType} from './components/Todolist/Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
-import {AppBar, Button, Container, Grid, IconButton, Toolbar, Typography, Paper} from '@material-ui/core';
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
@@ -140,7 +140,7 @@ function App() {
                     marginTop: '30px',
                     marginBottom: '35px'
                 }}>
-                    <AddItemForm placeholder='Add new todo' addItem={addNewTodoList}/>
+                    <AddItemForm placeholder="Add new todo" addItem={addNewTodoList}/>
                 </Grid>
                 <Grid container spacing={5}>
                     {todoListsForRendering}

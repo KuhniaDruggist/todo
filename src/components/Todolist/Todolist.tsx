@@ -52,7 +52,7 @@ function Todolist(props: TodolistPropsType) {
                     <DeleteForever/>
                 </IconButton>
             </div>
-            <AddItemForm placeholder='Add new task' addItem={addTask}/>
+            <AddItemForm placeholder="Add new task" addItem={addTask}/>
             <ul className={styles.list}>
                 {
                     props.tasks.map(task => {
