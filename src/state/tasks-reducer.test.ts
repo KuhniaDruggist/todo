@@ -1,10 +1,10 @@
 import {v1} from 'uuid';
 import {TasksStateType} from '../App';
 import {addTask, changeStatus, changeTaskTitle, removeTask, tasksReducer} from './tasks-reducer';
-import {addTodolist, removeTodolist} from './todolists-reducer';
+import {addTodoList, removeTodoList} from './todolists-reducer';
 
-const todoListIdFirst = v1();
-const todoListIdSecond = v1();
+const todoListIdFirst: string = v1();
+const todoListIdSecond: string = v1();
 
 let startState: TasksStateType = {}
 
@@ -63,7 +63,7 @@ test('correct task should change its status', () => {
 
 test('new property with new array should be added when new todolist is added', () => {
     const newtTodolistTitle = 'New todolist title';
-    const endState = tasksReducer(startState, addTodolist(newtTodolistTitle));
+    const endState = tasksReducer(startState, addTodoList(newtTodolistTitle));
 
     const keys = Object.keys(endState);
     const newKey = keys.find(k => k !== todoListIdFirst && k !== todoListIdSecond);
@@ -76,7 +76,7 @@ test('new property with new array should be added when new todolist is added', (
 });
 
 test('property with todolistId should be deleted', () => {
-    const endState = tasksReducer(startState, removeTodolist(todoListIdFirst))
+    const endState = tasksReducer(startState, removeTodoList(todoListIdFirst))
 
     const keys = Object.keys(endState);
 
