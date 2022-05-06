@@ -1,13 +1,9 @@
 import { v1 } from 'uuid';
 import { tasksReducer } from './tasksReducer';
-import { removeTask } from '../ac/removeTask';
-import { addTask } from '../ac/addTask';
-import { changeTaskTitle } from '../ac/changeTaskTitle';
-import { changeTaskStatus } from '../ac/changeTaskStatus';
-import { removeTodoList } from '../ac/removeTodoList';
-import { addTodoList } from '../ac/addTodoList';
 
 import { TasksStateType } from '../App';
+import { addTask, changeTaskStatus, changeTaskTitle, removeTask } from '../ac/tasks';
+import { addTodoList, removeTodoList } from '../ac/todoList';
 
 const todoListIdFirst: string = v1();
 const todoListIdSecond: string = v1();
@@ -45,7 +41,7 @@ test('correct task should be added', () => {
     expect(endState[todoListIdFirst][0].title).toBe('Bread');
     expect(endState[todoListIdFirst][1].title).toBe('Cheese');
     expect(endState[todoListIdSecond].length).toBe(3);
-    expect(endState[todoListIdSecond][0].title).toBe(newTitle);
+    expect(endState[todoListIdSecond][2].title).toBe(newTitle);
 });
 
 test('correct task should change its name', () => {
