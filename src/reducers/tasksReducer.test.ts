@@ -1,25 +1,31 @@
-import {v1} from 'uuid';
-import {TasksStateType} from '../App';
-import {addTask, changeStatus, changeTaskTitle, removeTask, tasksReducer} from './tasks-reducer';
-import {addTodoList, removeTodoList} from './todolists-reducer';
+import { v1 } from 'uuid';
+import { tasksReducer } from './tasksReducer';
+import { removeTask } from '../ac/removeTask';
+import { addTask } from '../ac/addTask';
+import { changeTaskTitle } from '../ac/changeTaskTitle';
+import { changeTaskStatus } from '../ac/changeTaskStatus';
+import { removeTodoList } from '../ac/removeTodoList';
+import { addTodoList } from '../ac/addTodoList';
+
+import { TasksStateType } from '../App';
 
 const todoListIdFirst: string = v1();
 const todoListIdSecond: string = v1();
 
-let startState: TasksStateType = {}
+let startState: TasksStateType = {};
 
 beforeEach(() => {
     startState = {
         [todoListIdFirst]: [
-            {id: v1(), title: 'Bread', isDone: false},
-            {id: v1(), title: 'Cheese', isDone: false}
+            { id: v1(), title: 'Bread', isDone: false },
+            { id: v1(), title: 'Cheese', isDone: false },
         ],
         [todoListIdSecond]: [
-            {id: v1(), title: 'House', isDone: false},
-            {id: v1(), title: 'Car', isDone: true},
-        ]
-    }
-})
+            { id: v1(), title: 'House', isDone: false },
+            { id: v1(), title: 'Car', isDone: true },
+        ],
+    };
+});
 
 test('correct task should be removed', () => {
     const taskId = startState[todoListIdFirst][0].id;
@@ -54,7 +60,7 @@ test('correct task should change its name', () => {
 
 test('correct task should change its status', () => {
     const taskId = startState[todoListIdSecond][0].id;
-    const endState = tasksReducer(startState, changeStatus(taskId, true, todoListIdSecond))
+    const endState = tasksReducer(startState, changeTaskStatus(taskId, true, todoListIdSecond))
 
     expect(endState[todoListIdFirst].length).toBe(2);
     expect(endState[todoListIdSecond].length).toBe(2);
@@ -64,11 +70,10 @@ test('correct task should change its status', () => {
 test('new property with new array should be added when new todolist is added', () => {
     const newtTodolistTitle = 'New todolist title';
     const endState = tasksReducer(startState, addTodoList(newtTodolistTitle));
-
     const keys = Object.keys(endState);
     const newKey = keys.find(k => k !== todoListIdFirst && k !== todoListIdSecond);
     if (!newKey) {
-        throw Error('new key should be added')
+        throw Error('new key should be added');
     }
 
     expect(keys.length).toBe(3);
@@ -76,8 +81,7 @@ test('new property with new array should be added when new todolist is added', (
 });
 
 test('property with todolistId should be deleted', () => {
-    const endState = tasksReducer(startState, removeTodoList(todoListIdFirst))
-
+    const endState = tasksReducer(startState, removeTodoList(todoListIdFirst));
     const keys = Object.keys(endState);
 
     expect(keys.length).toBe(1);

@@ -1,10 +1,10 @@
 import React, {ChangeEvent} from 'react';
-import styles from './Todolist.module.css'
-import {FilterValuesType} from '../../App';
+import styles from './Todolist.module.css';
 import {AddItemForm} from '../AddItemForm/AddItemForm';
 import {EditableSpan} from '../EditableSpan/EditableSpan';
 import {Button, Checkbox, IconButton} from '@material-ui/core';
 import {DeleteForever, HighlightOff} from '@material-ui/icons';
+import { FilterValuesType } from './types';
 
 export type TaskType = {
     id: string

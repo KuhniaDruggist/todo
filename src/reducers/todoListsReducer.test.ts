@@ -1,12 +1,12 @@
 import {v1} from 'uuid';
 import {
-    addTodoList,
-    changeTodoListFilter,
-    changeTodoListTitle,
-    removeTodoList,
     todolistsReducer
-} from './todolists-reducer';
+} from './todoListsReducer';
 import {TodolistType} from '../App';
+import {removeTodoList} from '../ac/removeTodoList';
+import {addTodoList} from '../ac/addTodoList';
+import {changeTodoListTitle} from '../ac/changeTodoListTitle';
+import {changeTodoListFilter} from '../ac/changeTodoListFilter';
 
 const todoListIdFirst: string = v1();
 const todoListIdSecond: string = v1();
