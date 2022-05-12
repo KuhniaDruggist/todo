@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import {Button, TextField} from '@material-ui/core';
 
 type AddItemFormPropsType = {
@@ -11,27 +11,31 @@ export function AddItemForm(props: AddItemFormPropsType) {
     let [error, setError] = useState<string>('');
 
     const addItem = () => {
-        if (!title) {
+        let addedItem = title.trim();
+
+        if (!addedItem) {
             setError('Field is required!');
+            setTitle('');
             return;
         }
-        props.addItem(title.trim());
+        props.addItem(addedItem);
         setTitle('');
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (error) {
+            if (e.currentTarget.value === ' ') return;
+            setError('');
+        }
         setTitle(e.currentTarget.value);
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (error && e.key === ' ') {
-            return;
-        }
-
+        if (e.key === 'Enter') addItem();
+    }
+    const onBlurHandler = () => {
+        let addedItem = title.trim();
+        if (!addedItem) setTitle('');
         error && setError('');
-
-        if (e.key === 'Enter') {
-            addItem();
-        }
     }
 
     return (
@@ -44,7 +48,8 @@ export function AddItemForm(props: AddItemFormPropsType) {
                 label={error ? 'Error' : ''}
                 helperText={error}
                 onChange={onChangeHandler}
-                onKeyPress={onKeyPressHandler}
+                onBlur={onBlurHandler}
+                onKeyDown={onKeyPressHandler}
                 placeholder={props.placeholder}
             />
             <Button style={{
