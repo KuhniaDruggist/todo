@@ -7,9 +7,8 @@ const initialState: TodolistType[] = [];
 export const todoListsReducer = (state: TodolistType[] = initialState, action: ActionTypes): TodolistType[] => {
     switch (action.type) {
         case A.ADD_TODO_LIST:
-            const stateCopy = [ ...state ];
             return [
-                ...stateCopy,
+                ...state,
                 { id: action.newTodolistId, title: action.newTodolistTitle, filter: 'all' },
             ];
         case A.REMOVE_TODO_LIST:
