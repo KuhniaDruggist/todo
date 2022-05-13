@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 // import App from './App';
 // import AppWithReducers from './AppWithReducers';
-import AppWithRedux from './AppWithRedux';
+import { AppWithRedux } from './AppWithRedux';
 
 import { store } from './store';
 

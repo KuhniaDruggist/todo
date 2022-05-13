@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { v1 } from 'uuid';
-import Todolist, { TaskType } from './components/Todolist/Todolist';
+import { Todolist } from './components/Todolist/Todolist';
 import { AddItemForm } from './components/AddItemForm/AddItemForm';
 import { AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
+
 import { FilterValuesType } from './components/Todolist/types';
+import { TaskType } from './components/Todolist/Task/types';
 
 export type TodolistType = {
     id: string
@@ -91,11 +93,11 @@ function App () {
     function getTasksForRendering (todoList: TodolistType): TaskType[] {
         switch (todoList.filter) {
             case 'active':
-                return tasks[todoList.id].filter(t => !t.isDone);
+                return tasks[ todoList.id ].filter(t => !t.isDone);
             case 'completed':
-                return tasks[todoList.id].filter(t => t.isDone);
+                return tasks[ todoList.id ].filter(t => t.isDone);
             default:
-                return tasks[todoList.id];
+                return tasks[ todoList.id ];
         }
     }
 

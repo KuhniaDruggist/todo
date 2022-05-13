@@ -1,13 +1,15 @@
-import React from 'react';
-import Todolist, { TaskType } from './components/Todolist/Todolist';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Todolist } from './components/Todolist/Todolist';
 import { AddItemForm } from './components/AddItemForm/AddItemForm';
 import { AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import { addTodoList, changeTodoListFilter, changeTodoListTitle, removeTodoList } from './ac/todoList';
 import { addTask, changeTaskStatus, changeTaskTitle, removeTask } from './ac/tasks';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { AppRootStateType } from './store';
 import { FilterValuesType } from './components/Todolist/types';
+import { TaskType } from './components/Todolist/Task/types';
 
 export type TodolistType = {
     id: string
@@ -19,53 +21,42 @@ export type TasksStateType = {
     [key: string]: TaskType[]
 }
 
-function AppWithRedux () {
+export const AppWithRedux = () => {
     const todoLists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todoListsReducer);
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasksReducer);
     const dispatch = useDispatch();
 
-    function addTodoListHandler (title: string) {
+    const addTodoListHandler = useCallback((title: string) => {
         dispatch(addTodoList(title));
-    }
+    }, [ dispatch ]);
 
-    function removeTodoListHandler (todoListId: string) {
+    const removeTodoListHandler = useCallback((todoListId: string) => {
         dispatch(removeTodoList(todoListId));
-    }
+    }, [ dispatch ]);
 
-    function changeTodoListTitleHandler (title: string, todoListId: string) {
+    const changeTodoListTitleHandler = useCallback((title: string, todoListId: string) => {
         dispatch(changeTodoListTitle(todoListId, title));
-    }
+    }, [ dispatch ]);
 
-    function changeFilterHandler (filter: FilterValuesType, todoListId: string) {
+    const changeFilterHandler = useCallback((filter: FilterValuesType, todoListId: string) => {
         dispatch(changeTodoListFilter(todoListId, filter));
-    }
+    }, [ dispatch ]);
 
-    function addTaskHandler (newTitle: string, todoListId: string) {
+    const addTaskHandler = useCallback((newTitle: string, todoListId: string) => {
         dispatch(addTask(newTitle, todoListId));
-    }
+    }, [ dispatch ]);
 
-    function removeTaskHandler (id: string, todoListId: string) {
+    const removeTaskHandler = useCallback((id: string, todoListId: string) => {
         dispatch(removeTask(id, todoListId));
-    }
+    }, [ dispatch ]);
 
-    function changeTaskTitleHandler (taskId: string, title: string, todoListId: string) {
+    const changeTaskTitleHandler = useCallback((taskId: string, title: string, todoListId: string) => {
         dispatch(changeTaskTitle(taskId, title, todoListId));
-    }
+    }, [ dispatch ]);
 
-    function changeStatusHandler (taskId: string, isDone: boolean, todoListId: string) {
+    const changeStatusHandler = useCallback((taskId: string, isDone: boolean, todoListId: string) => {
         dispatch(changeTaskStatus(taskId, isDone, todoListId));
-    }
-
-    function getTasksForRendering (todoList: TodolistType): TaskType[] {
-        switch (todoList.filter) {
-            case 'active':
-                return tasks[todoList.id].filter(t => !t.isDone);
-            case 'completed':
-                return tasks[todoList.id].filter(t => t.isDone);
-            default:
-                return tasks[todoList.id];
-        }
-    }
+    }, [ dispatch ]);
 
     const todoListsForRendering = todoLists.map(tl => {
         return (
@@ -81,7 +72,7 @@ function AppWithRedux () {
                         todoListId={ tl.id }
                         title={ tl.title }
                         filter={ tl.filter }
-                        tasks={ getTasksForRendering(tl) }
+                        tasks={ tasks[ tl.id ] }
                         changeTodoTitle={ changeTodoListTitleHandler }
                         removeTodoList={ removeTodoListHandler }
                         changeFilter={ changeFilterHandler }
@@ -125,7 +116,7 @@ function AppWithRedux () {
                     } }
                 >
                     <AddItemForm
-                        placeholder="Add new todo"
+                        placeholder="Add a new todo"
                         addItem={ addTodoListHandler }
                     />
                 </Grid>
@@ -140,5 +131,3 @@ function AppWithRedux () {
         </div>
     );
 }
-
-export default AppWithRedux;

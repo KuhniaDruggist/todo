@@ -11,15 +11,6 @@
     list-style: none;
 }
 
-.list li {
-    display: flex;
-    align-items: center;
-}
-
-.isDone {
-    opacity: 0.5;
-}
-
 .filterButtons {
     width: 250px;
     display: flex;
